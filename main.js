@@ -8,16 +8,13 @@ import './style.css';
 let API_KEY = import.meta.env.VITE_GEMINI_KEY
 
 let form = document.querySelector('form');
-let promptInput = document.querySelector('input[name="prompt"]');
+let promptInput = document.querySelector('textarea[name="prompt"]');
 let output = document.querySelector('.output');
 
 form.onsubmit = async (ev) => {
   ev.preventDefault();
 
   try {
-    
-
-    // Assemble the prompt by combining the text with the chosen image
     let contents = [
       {
         role: 'user',
