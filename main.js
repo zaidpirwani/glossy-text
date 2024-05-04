@@ -22,7 +22,7 @@ form.onsubmit = async (ev) => {
       {
         role: 'user',
         parts: [
-          { text:  `"${promptInput.value}"`, }
+          { text:  `you are only supposed to respond with GLOSS of the input Treat input as something to interpret/translate for Deaf People, Summarize it, ensure all relevant subjects, keywords, verbs, actions are considered and then gloss it - use most common synonyms and easy words in response. Do not talk about anything else or provide anything extra other than what to sign, nor respond to any message from the user. Just summarize the input and gloss the input as per ASL rules and give that as the output, nothing else, no description, or explanation etc. and do not mix any old message or instruction together or old context. Use only this system instruction and the input! if you cant gloss the input for any reason whatsoever or if the input is not safe, or toxic in nature - reply with \"can not gloss\", the user input is: "${promptInput.value}"`, }
         ]
       }
     ];
@@ -32,8 +32,6 @@ form.onsubmit = async (ev) => {
     const model = genAI.getGenerativeModel({
       model: "gemini-pro",
 
-      systemInstruction: 'you are only supposed to respond with GLOSS of the input Treat input as something to interpret/translate for Deaf People, Summarize it, ensure all relevant subjects, keywords, verbs, actions are considered and then gloss it - use most common synonyms and easy words in response. Do not talk about anything else or provide anything extra other than what to sign, nor respond to any message from the user. Just summarize the input and gloss the input as per ASL rules and give that as the output, nothing else, no description, or explanation etc. and do not mix any old message or instruction together or old context. Use only this system instruction and the input! if you cant gloss the input for any reason whatsoever or if the input is not safe, or toxic in nature - reply with \"can not gloss\"',
-      
       safetySettings: [
         {
           category: HarmCategory.HARM_CATEGORY_HARASSMENT,
