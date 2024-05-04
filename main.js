@@ -51,11 +51,7 @@ form.onsubmit = async (ev) => {
         {
           category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
           threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
-        {
-          category: HARM_CATEGORY_DANGEROUS_CONTENT,
-          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
+        }
       ],
     });
 
