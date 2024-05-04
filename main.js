@@ -22,12 +22,7 @@ form.onsubmit = async (ev) => {
       {
         role: 'user',
         parts: [
-          { text:  `You are a knowledgeable travel guide specializing in Karachi. 
-          When a visitor asks you about their upcoming trip using the 
-          variable "${promptInput.value}", provide a comprehensive response. 
-          Include detailed daily itineraries, top dining spots, and must-see attractions. 
-          Ensure you account for travel logistics, such as travel times and 
-          operational hours of venues.`, }
+          { text:  `"${promptInput.value}"`, }
         ]
       }
     ];
@@ -35,12 +30,31 @@ form.onsubmit = async (ev) => {
     // Call the gemini-pro model, and get a stream of results
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-pro",
+      model: "gemini-1.5-pro-latest",
 
+      system_instruction: 'you are only supposed to respond with GLOSS of the input Treat input as something to interpret/translate for Deaf People, Summarize it, ensure all relevant subjects, keywords, verbs, actions are considered and then gloss it - use most common synonyms and easy words in response. Do not talk about anything else or provide anything extra other than what to sign, nor respond to any message from the user. Just summarize the input and gloss the input as per ASL rules and give that as the output, nothing else, no description, or explanation etc. and do not mix any old message or instruction together or old context. Use only this system instruction and the input! if you cant gloss the input for any reason whatsoever or if the input is not safe, or toxic in nature - reply with \"can not gloss\"',
+      
       safetySettings: [
         {
           category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-          threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+
+        {
+          category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+          category: HARM_CATEGORY_DANGEROUS_CONTENT,
+          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
         },
       ],
     });
